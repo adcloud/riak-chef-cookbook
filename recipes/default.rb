@@ -124,7 +124,9 @@ end
 service "riak" do
   supports :start => true, :stop => true, :restart => true
   action [ :enable ]
-  subscribes :restart, resources(:file => [ "#{node['riak']['package']['config_dir']}/app.config",
-                                   "#{node['riak']['package']['config_dir']}/vm.args" ])
+  if node['riak']['restart_on_changes']
+    subscribes :restart, resources(:file => [ "#{node['riak']['package']['config_dir']}/app.config",
+                                     "#{node['riak']['package']['config_dir']}/vm.args" ])
+  end
   only_if { node['riak']['package']['type'] == "binary" }
 end

@@ -17,6 +17,9 @@
 # limitations under the License.
 #
 
+# cookbook
+default['riak']['restart_on_changes'] = true
+
 # vm.args
 default['riak']['args']['-name'] = "riak@#{node['ipaddress']}"
 default['riak']['args']['-setcookie'] = "riak"
